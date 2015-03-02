@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/jscott/Projects/Fingerprint/fpChall_Matching/20Peak_Edits+100k+13k+316'
+let g:netrw_dirhist_2='/Users/jscott/.vim'
