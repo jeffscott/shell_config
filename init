@@ -1,0 +1,2 @@
+cp '../.vimrc' '../.vimrc_old'
+mv '.vimrc' '../.vimrc'
