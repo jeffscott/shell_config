@@ -1,2 +1,3 @@
-cp '../.vimrc' '../.vimrc_old'
-mv '.vimrc' '../.vimrc'
+if [ -f ~/.vimrc ]; then
+    cp '~/.vimrc' '~/.vimrc_old'
+cp 'vimrc' '~/.vimrc'
