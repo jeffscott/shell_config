@@ -7,11 +7,6 @@ set number
 set tabstop=4
 set shiftwidth=4
 
-" Remap hjkl -> jkl;
-nnoremap j h
-nnoremap k j
-nnoremap l k
-nnoremap ; l
 
 " Look and feel
 " colorscheme solarized
