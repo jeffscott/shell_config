@@ -48,7 +48,16 @@ export LSCOLORS=exfxcxdxbxegedabagacad;
 # Perforce
 export P4CONFIG=.p4config
 
-# GIT
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+if [[ $(uname -s) == Darwin ]]
+then
+	# GIT
+	if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
+	  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+	fi
 fi
+
+
+# COMMAND ALIASES
+alias li='ls -lhG'
+alias la='ls -la'
+alias ll='ls -l'

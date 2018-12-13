@@ -2,6 +2,7 @@
 
 
 # Check for existing files and copy them
+echo "Copying old files"
 if [ -f ~/.vimrc ]; then
     cp ~/.vimrc ~/.vimrc_old
 fi
@@ -11,5 +12,8 @@ if [ -f ~/.bash_profile ]; then
 fi
 
 # Install the new config
+echo "Installing new files"
 cp vimrc ~/.vimrc
 cp bash_profile ~/.bash_profile
+
+echo "done"
