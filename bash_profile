@@ -1,63 +1,100 @@
 # Prompt
 export PS1="\u@\h:\W > "
 
-# iTerm2 profile
-function it2prof
-{ 
-    echo -e "\033]50;SetProfile=$1\a"
-}
-
-function streamq () {
-    echo "$@"
-    streamfp "-query -noLog -meanNorm -fpOnly -inWavFile" "$@" -outFile "${@/.wav/.rfp}"
-}
-
 # Aliases file
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# AWS Setup
-export JAVA_HOME=$(/usr/libexec/java_home)
-export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.5.0
-
-# for training purpose, you can use the sandbox bucket: gn5455-sandbox-terraform-state
-export TF_WRAPPER_BUCKET=gn5452-ar-terraform-state
-export TF_WRAPPER_AWS_PROFILE=nonprod
-export TF_WRAPPER_BUCKET_REGION=us-west-2
-
-function cdl {
-    builtin cd "$@" && ls -lhG
-}
-
-# PATH
-PYTHONPATH=/usr/bin/python:$PYTHONPATH
-TEX=/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
-export PATH=/usr/local/bin:/usr/local/share/python:$TEX:$PYTHONPATH:$EC2_HOME/bin:/Users/jscott/bin:$PATH
-
 # History Control
 export HISTCONTROL=ignoredups:erasedups
-
-# Remote terminal colors
-export PROMPT_COMMAND='/usr/bin/python ~/.make_prompt 255 159 33'
 
 # LS colors
 export CLICOLOR=1;
 export LSCOLORS=exfxcxdxbxegedabagacad;
 
-# Perforce
-export P4CONFIG=.p4config
+#pyenv
+eval "$(pyenv init -)"
+
 
 if [[ $(uname -s) == Darwin ]]
 then
-	# GIT
+	# GIT Tab completion
 	if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
 	  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
 	fi
 fi
 
+##########################
+# PERSISTENT HISTORY
+##########################
 
-# COMMAND ALIASES
-alias li='ls -lhG'
-alias la='ls -la'
-alias ll='ls -l'
+ export HISTTIMEFORMAT="%F %T  "
+ log_bash_persistent_history()
+ {
+   local rc=$?
+   [[ $(history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$ ]]
+   local date_part="${BASH_REMATCH[1]}"
+   local command_part="${BASH_REMATCH[2]}"
+   if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
+   then
+     echo $date_part "|" "$command_part" >> ~/.persistent_history
+     export PERSISTENT_HISTORY_LAST="$command_part"
+   fi
+ }
+
+# Is added to the PROMPT_COMMAND by the iterm2 integration
+preexec_functions+=(log_bash_persistent_history)
+
+export FZF_TMUX=0
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+ #--------------------Persistent History-----------------
+ # Add this code to your .bashrc to save persistent history
+ #
+ # See http://eli.thegreenplace.net/2013/06/11/keeping-persistent-history-in-bash
+ # for details.
+ #
+ # Note, HISTTIMEFORMAT has to be set and end with at least one space; for
+ # example:
+ #
+ #   export HISTTIMEFORMAT="%F %T  "
+ #
+ # If your format is set differently, you'll need to change the regex that
+ # matches history lines below.
+ #
+ # Eli Bendersky (http://eli.thegreenplace.net)
+ # This code is in the public domain
+
+ export HISTTIMEFORMAT="%F %T  "
+ log_bash_persistent_history()
+ {
+   local rc=$?
+   [[ $(history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$ ]]
+   local date_part="${BASH_REMATCH[1]}"
+   local command_part="${BASH_REMATCH[2]}"
+   if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
+   then
+     echo $date_part "|" "$command_part" >> ~/.persistent_history
+     export PERSISTENT_HISTORY_LAST="$command_part"
+   fi
+ }
+
+ # enable FZF, the bash.rc location doesn't seem to work
+# note added this the fzf completion to make ctrl r use persistent history
+# this is in ~/.fzf/shell/key-bindings.bash
+#
+#__fzf_history__() (
+#  local line
+#  shopt -u nocaseglob nocasematch
+#  line=$(
+#    cat ~/.persistent_history |
+#    $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+#   \grep '^ *[0-9]') && sed 's/^ *\([^|]*| \)\(.*\)/\2/' <<< "$line"
+#)
+
+# use ripgrep in fzf's interface
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+# Ctrl-p select a file through fzf and open in vim
+bind -x
