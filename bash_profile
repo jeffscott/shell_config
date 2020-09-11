@@ -80,7 +80,15 @@ export FZF_TMUX=0
    fi
  }
 
- # enable FZF, the bash.rc location doesn't seem to work
+ # Stuff to do on PROMPT_COMMAND
+run_on_prompt_command()
+{
+    log_bash_persistent_history
+}
+
+PROMPT_COMMAND="run_on_prompt_command"
+
+# enable FZF, the bash.rc location doesn't seem to work
 # note added this the fzf completion to make ctrl r use persistent history
 # this is in ~/.fzf/shell/key-bindings.bash
 #
@@ -97,4 +105,4 @@ export FZF_TMUX=0
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 # Ctrl-p select a file through fzf and open in vim
-bind -x
+bind -x '"\C-p": vim $(fzf);'
