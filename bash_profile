@@ -1,5 +1,5 @@
 # Prompt
-export PS1="\e[1;33m\u\e[0m@\e[1;34m\h\e[0m :: \e[1;31m\w\e[0m > "
+export PS1="\e[1;33m\u\e[0m@\e[1;34m\h\e[0m :: \e[1;31m\W\e[0m > "
 
 # Aliases file
 if [ -f ~/.bash_aliases ]; then
