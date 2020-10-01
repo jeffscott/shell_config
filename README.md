@@ -1,5 +1,11 @@
 # shell_config
 
+## Dependencies
+
+* [fzf](https://github.com/junegunn/fzf) - Fuzzy command line search
+* [ripgrep](https://github.com/BurntSushi/ripgrep#installation) - Fast grep
+
+## Installation
 Run the following
 ```./init```
 
