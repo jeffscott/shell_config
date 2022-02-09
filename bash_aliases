@@ -1,5 +1,5 @@
 # LS
-alias li='ls -lhG'
+alias li='ls -lhGo'
 alias la='ls -a'
 
 # GIT

@@ -75,14 +75,14 @@ fi
 # note added this the fzf completion to make ctrl r use persistent history
 # this is in ~/.fzf/shell/key-bindings.bash
 #
-__fzf_history__() (
- local line
- shopt -u nocaseglob nocasematch
- line=$(
-   cat ~/.persistent_history |
-   $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
-  \grep '^ *[0-9]') && sed 's/^ *\([^|]*| \)\(.*\)/\2/' <<< "$line"
-)
+# __fzf_history__() (
+#  local line
+#  shopt -u nocaseglob nocasematch
+#  line=$(
+#    cat ~/.persistent_history |
+#    $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+#   \grep '^ *[0-9]') && sed 's/^ *\([^|]*| \)\(.*\)/\2/' <<< "$line"
+# )
 
 # use ripgrep in fzf's interface
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
