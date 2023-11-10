@@ -17,7 +17,6 @@ fi
 
 # Install the new config
 echo "Installing new files"
-cp make_prompt ~/.make_prompt
 cp vimrc ~/.vimrc
 cp bash_profile ~/.bash_profile
 cp bash_aliases ~/.bash_aliases

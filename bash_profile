@@ -1,5 +1,9 @@
 # Prompt
-export PS1="\e[1;33m\u\e[0m@\e[1;34m\h\e[0m :: \e[1;31m\W\e[0m > "
+BYELLOW='\[\e[01;33m\]'
+IBLACK='\[\e[0;90m\]'
+IRED='\[\e[0;31m\]'
+PS_CLEAR='\[\e[0m\]'
+export PS1="${BYELLOW}\u${PS_CLEAR}@${IRED}\h${PS_CLEAR}${IBLACK}\w${PS_CLEAR}\n\$"
 
 # Aliases file
 if [ -f ~/.bash_aliases ]; then
@@ -12,9 +16,6 @@ export HISTCONTROL=ignoredups:erasedups
 # LS colors
 export CLICOLOR=1;
 export LSCOLORS=exfxcxdxbxegedabagacad;
-
-#pyenv
-eval "$(pyenv init -)"
 
 
 if [[ $(uname -s) == Darwin ]]
