@@ -1,0 +1,7 @@
+HISTFILE=~/.zsh_history
+HISTSIZE=300000
+HIST_STAMPS="%y-%m-%d-%T"
+setopt SHARE_HISTORY 
+setopt HIST_IGNORE_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_NO_STORE
